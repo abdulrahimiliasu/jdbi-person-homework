@@ -19,7 +19,7 @@ public class Main {
             for (int i = 1; i < Integer.parseInt(args[0]) + 1; i++) {
                 dao.insert(createPerson(i));
             }
-            Optional<Person> personWithID = dao.findById(1);
+            Optional<Person> personWithID = dao.findById(5);
             System.out.println(personWithID);
 
             personWithID.ifPresent(dao::delete);
@@ -29,11 +29,11 @@ public class Main {
         personList.forEach(System.out::println);
     }
 
-    static Person createPerson(int id){
+    static Person createPerson(int personID){
         Faker faker = new Faker();
         LocalDate birthday = LocalDate.ofInstant(faker.date().birthday().toInstant(), ZoneId.systemDefault());
         return Person.builder()
-                .id(id)
+                .id(personID)
                 .name(faker.name().fullName())
                 .birthDate(birthday)
                 .gender(faker.options().option(Person.Gender.MALE,Person.Gender.FEMALE))
